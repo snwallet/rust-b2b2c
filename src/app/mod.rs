@@ -28,6 +28,7 @@ async fn router(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
         (&Method::POST, "/admin/login") => test_controller::main(req).await,
         //store
         (&Method::POST, "/store/login") => store::login::main(req).await,
+        (&Method::POST, "/store/repwd") => store::repwd::main(req).await,
         (&Method::POST, "/store/insert") => store::insert::main(req).await,
         (&Method::POST, "/store/select") => store::select::main(req).await,
         (&Method::POST, "/store/update") => store::update::main(req).await,
