@@ -16,3 +16,7 @@ serde_json = {version = "1.0"}
 url = "2.2"
 
 mysql = "*"
+
+chrono = "*"
+
+rust-crypto = "*"
