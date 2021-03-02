@@ -40,7 +40,7 @@ pub fn allow_brand_name(brand_name:&str) -> bool {
 }
 
 #[allow(dead_code)]
-pub fn update(brand_name:&str,brand_logo:&str,brand_url:&str,sort:u64,id:u64) -> u64 {
+pub fn update(brand_name:&str,brand_logo:&str,brand_url:&str,sort:&str,id:&str) -> u64 {
     let time = common::get_timestamp();
     let mut conn = db::pool().get_conn().unwrap();
     let ret = "update shop_brand set brand_name=?,brand_logo=?,brand_url=?,brand_sort,update_time=? where id=?"
@@ -55,4 +55,27 @@ pub fn delete(id:&str) -> u64 {
     let ret = "update shop_brand set is_delete=? WHERE id=?".with((1,id)).run(&mut conn).unwrap();
     println!("ret:{:?}",ret.affected_rows());
     ret.affected_rows()
+}
+
+#[allow(dead_code)]
+pub fn select_all() -> Vec<Brand> {
+    let mut conn = db::pool().get_conn().unwrap();
+    let ret = "select id,brand_name,brand_logo,brand_url,sort,create_time,update_time from shop_brand where is_delete=0"
+        .map(&mut conn, |(id,brand_name,brand_logo,brand_url,sort,create_time,update_time)|{
+            Brand{id,brand_name,brand_logo,brand_url,sort,create_time,update_time}
+        }).unwrap();
+    println!("{:?}",ret);
+    ret
+}
+
+#[allow(dead_code)]
+pub fn select_id(id:&str) -> Vec<Brand> {
+    let mut conn = db::pool().get_conn().unwrap();
+    let ret = "select id,brand_name,brand_logo,brand_url,sort,create_time,update_time from shop_brand where is_delete=? and id=?"
+        .with((0,id))
+        .map(&mut conn, |(id,brand_name,brand_logo,brand_url,sort,create_time,update_time)|{
+            Brand{id,brand_name,brand_logo,brand_url,sort,create_time,update_time}
+        }).unwrap();
+    println!("{:?}",ret);
+    ret
 }

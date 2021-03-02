@@ -11,7 +11,7 @@ use hyper::service::{make_service_fn, service_fn};
 
 
 pub async fn run(port:u16) {
-    let addr = ([192, 168, 0, 123], port).into();
+    let addr = ([127, 0, 0, 1], port).into();
     let make_svc = make_service_fn(|_conn| async { Ok::<_, hyper::Error>(service_fn(router)) });
     let server = Server::bind(&addr).serve(make_svc);
     println!("server run at http://{}",addr);
@@ -40,8 +40,8 @@ async fn router(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
         (&Method::POST, "/user/delete") => test_controller::main(req).await,
         //brand curd
         (&Method::POST, "/brand/insert") => brand::insert::main(req).await,
-        (&Method::POST, "/brand/select") => test_controller::main(req).await,
-        (&Method::POST, "/brand/update") => test_controller::main(req).await,
+        (&Method::POST, "/brand/select") => brand::select::main(req).await,
+        (&Method::POST, "/brand/update") => brand::update::main(req).await,
         (&Method::POST, "/brand/delete") => brand::delete::main(req).await,
         //category curd
         (&Method::POST, "/category/insert") => category::insert::main(req).await,

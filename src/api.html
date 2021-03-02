@@ -3,22 +3,24 @@
     <meta charset="UTF-8">
     <style>
         table {
-            font-family: verdana,arial,sans-serif;
-            font-size:11px;
-            color:#333333;
+            font-family: verdana, arial, sans-serif;
+            font-size: 11px;
+            color: #333333;
             border-width: 1px;
             border-color: #666666;
             border-collapse: collapse;
-            width:100%;
+            width: 100%;
         }
+
         table th {
-            width:23%;
+            width: 23%;
             border-width: 1px;
             padding: 8px;
             border-style: solid;
             border-color: #666666;
             background-color: #dedede;
         }
+
         table td {
             text-align: center;
             border-width: 1px;
@@ -30,22 +32,281 @@
     </style>
 </head>
 <body>
-<h1>baseurl = http://192.168.0.123:8001</h1>(example:  /store/insert   所有接口POST)
+<h1>baseurl = 本页访问地址</h1>(example: /store/insert 所有接口POST)
 
 <h2>store</h2>
+<pre>
+pub struct Store {
+    pub id: u64,
+    pub store_title:String,
+    pub store_name:String,
+    pub store_pwd:String,
+    pub store_desc:String,
+    pub create_time:u64,
+    pub update_time:u64
+}
+</pre>
 <table>
-    <tr><th>接口说明</th><th>接口地址</th><th>接口参数</th><th>返回值</th></tr>
     <tr>
-        <td>登录</td><td>login</td><td>name=testshop&pwd=123456</td><td>{ "code": 0, "msg": "success", "data": [ { "id": 1, "store_title": "测试商城", "store_name": "testshop", "store_pwd": "e10adc3949ba59abbe56e057f20f883e", "store_desc": "myshop is testshop", "create_time": 1614230792, "update_time": 1614578877 } ] }</td>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
     </tr>
     <tr>
-        <td>修改密码</td><td>repwd</td><td>id=2&old_pwd=123456&new_pwd=123123</td><td>{ "code": -2, "msg": "old pwd error", "data": "" }</td>
+        <td>登录</td>
+        <td>login</td>
+        <td>name=testshop&pwd=123456</td>
+        <td>{ "code": 0, "msg": "success", "data": [ { "id": 1, "store_title": "测试商城", "store_name": "testshop",
+            "store_pwd": "e10adc3949ba59abbe56e057f20f883e", "store_desc": "myshop is testshop", "create_time":
+            1614230792, "update_time": 1614578877 } ] }
+        </td>
     </tr>
     <tr>
-        <td>修改店铺信息</td><td>update</td><td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td><td>{ "code": 0, "msg": "success", "data": 1 }</td>
+        <td>修改密码</td>
+        <td>repwd</td>
+        <td>id=2&old_pwd=123456&new_pwd=123123</td>
+        <td>{ "code": -2, "msg": "old pwd error", "data": "" }</td>
+    </tr>
+    <tr>
+        <td>修改店铺信息</td>
+        <td>update</td>
+        <td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
     </tr>
 </table>
 
+
+<h2>brand</h2>
+<pre>
+pub struct Brand {
+    pub id: u64,
+    pub brand_name:String,
+    pub brand_logo:String,
+    pub brand_url:String,
+    pub sort:u64,
+    pub create_time:u64,
+    pub update_time:u64
+}
+</pre>
+
+<table>
+    <tr>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
+    </tr>
+    <tr>
+        <td>添加</td>
+        <td>insert</td>
+        <td>brand_name，brand_logo,brand_url,sort</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>查询</td>
+        <td>select</td>
+        <td>{}</td>
+        <td>{ "code": 0, "msg": "success", "data": brand数组 }</td>
+    </tr>
+    <tr>
+        <td>更新</td>
+        <td>update</td>
+        <td>brand_name，brand_logo,brand_url,sort,id</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>删除</td>
+        <td>update</td>
+        <td>id</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
+
+<h2>category</h2>
+<pre>
+pub struct ShopCate{
+    pub   id:u64,
+    pub  cate_name:String,
+    pub   parent_id:u64,
+    pub   level:u8,
+    pub   path:String,
+    pub   sort:u16,
+    pub   is_on:u8,
+    pub    picture:String,
+}
+</pre>
+
+<table>
+    <tr>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
+    </tr>
+    <tr>
+        <td>添加</td>
+        <td>insert</td>
+        <td>cate_name,parent_id,level,path,sort,is_on,picture</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>查询</td>
+        <td>select</td>
+        <td>{}</td>
+        <td>{ "code": 0, "msg": "success", "data": shopcate数组 }</td>
+    </tr>
+    <tr>
+        <td>更新</td>
+        <td>update</td>
+        <td>cate_name,parent_id,level,path,sort,is_on,picture,id</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>删除</td>
+        <td>update</td>
+        <td>id</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
+
+<h2>user</h2>
+<pre>
+pub struct User {
+    pub id: u64,
+    pub brand_name:String,
+    pub brand_logo:String,
+    pub brand_url:String,
+    pub sort:u64,
+    pub create_time:u64,
+    pub update_time:u64
+}
+</pre>
+
+<table>
+    <tr>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
+    </tr>
+    <tr>
+        <td>添加</td>
+        <td>insert</td>
+        <td>brand_name，brand_logo,brand_url,sort</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>查询</td>
+        <td>select</td>
+        <td>id=2&old_pwd=123456&new_pwd=123123</td>
+        <td>{ "code": -2, "msg": "old pwd error", "data": Brand }</td>
+    </tr>
+    <tr>
+        <td>更新</td>
+        <td>update</td>
+        <td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>删除</td>
+        <td>update</td>
+        <td></td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
+
+<h2>goods</h2>
+<pre>
+pub struct Category {
+    pub id: u64,
+    pub brand_name:String,
+    pub brand_logo:String,
+    pub brand_url:String,
+    pub sort:u64,
+    pub create_time:u64,
+    pub update_time:u64
+}
+</pre>
+
+<table>
+    <tr>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
+    </tr>
+    <tr>
+        <td>添加</td>
+        <td>insert</td>
+        <td>brand_name，brand_logo,brand_url,sort</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>查询</td>
+        <td>select</td>
+        <td>id=2&old_pwd=123456&new_pwd=123123</td>
+        <td>{ "code": -2, "msg": "old pwd error", "data": Brand }</td>
+    </tr>
+    <tr>
+        <td>更新</td>
+        <td>update</td>
+        <td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>删除</td>
+        <td>update</td>
+        <td></td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
+
+<h2>order</h2>
+<pre>
+pub struct Order {
+    pub id: u64,
+    pub brand_name:String,
+    pub brand_logo:String,
+    pub brand_url:String,
+    pub sort:u64,
+    pub create_time:u64,
+    pub update_time:u64
+}
+</pre>
+
+<table>
+    <tr>
+        <th>接口说明</th>
+        <th>接口地址</th>
+        <th>接口参数</th>
+        <th>返回值</th>
+    </tr>
+    <tr>
+        <td>添加</td>
+        <td>insert</td>
+        <td>brand_name，brand_logo,brand_url,sort</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>查询</td>
+        <td>select</td>
+        <td>id=2&old_pwd=123456&new_pwd=123123</td>
+        <td>{ "code": -2, "msg": "old pwd error", "data": Brand }</td>
+    </tr>
+    <tr>
+        <td>更新</td>
+        <td>update</td>
+        <td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+    <tr>
+        <td>删除</td>
+        <td>update</td>
+        <td></td>
+        <td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
 
 </body>
 </html>
