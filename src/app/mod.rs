@@ -11,7 +11,7 @@ use hyper::service::{make_service_fn, service_fn};
 
 
 pub async fn run(port:u16) {
-    let addr = ([127, 0, 0, 1], port).into();
+    let addr = ([192, 168, 0, 123], port).into();
     let make_svc = make_service_fn(|_conn| async { Ok::<_, hyper::Error>(service_fn(router)) });
     let server = Server::bind(&addr).serve(make_svc);
     println!("server run at http://{}",addr);
@@ -39,15 +39,15 @@ async fn router(req: Request<Body>) -> Result<Response<Body>, hyper::Error> {
         (&Method::POST, "/user/update") => test_controller::main(req).await,
         (&Method::POST, "/user/delete") => test_controller::main(req).await,
         //brand curd
-        (&Method::POST, "/brand/insert") => test_controller::main(req).await,
+        (&Method::POST, "/brand/insert") => brand::insert::main(req).await,
         (&Method::POST, "/brand/select") => test_controller::main(req).await,
         (&Method::POST, "/brand/update") => test_controller::main(req).await,
-        (&Method::POST, "/brand/delete") => test_controller::main(req).await,
+        (&Method::POST, "/brand/delete") => brand::delete::main(req).await,
         //category curd
-        (&Method::POST, "/category/insert") => test_controller::main(req).await,
-        (&Method::POST, "/category/select") => test_controller::main(req).await,
-        (&Method::POST, "/category/update") => test_controller::main(req).await,
-        (&Method::POST, "/category/delete") => test_controller::main(req).await,
+        (&Method::POST, "/category/insert") => category::insert::main(req).await,
+        (&Method::POST, "/category/select") => category::select::main(req).await,
+        (&Method::POST, "/category/update") => category::update::main(req).await,
+        (&Method::POST, "/category/delete") => category::delete::main(req).await,
         //goods curd
         (&Method::POST, "/goods/insert") => test_controller::main(req).await,
         (&Method::POST, "/goods/select") => test_controller::main(req).await,

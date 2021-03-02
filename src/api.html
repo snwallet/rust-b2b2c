@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            font-family: verdana,arial,sans-serif;
+            font-size:11px;
+            color:#333333;
+            border-width: 1px;
+            border-color: #666666;
+            border-collapse: collapse;
+            width:100%;
+        }
+        table th {
+            width:23%;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+        table td {
+            text-align: center;
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<h1>baseurl = http://192.168.0.123:8001</h1>(example:  /store/insert   所有接口POST)
+
+<h2>store</h2>
+<table>
+    <tr><th>接口说明</th><th>接口地址</th><th>接口参数</th><th>返回值</th></tr>
+    <tr>
+        <td>登录</td><td>login</td><td>name=testshop&pwd=123456</td><td>{ "code": 0, "msg": "success", "data": [ { "id": 1, "store_title": "测试商城", "store_name": "testshop", "store_pwd": "e10adc3949ba59abbe56e057f20f883e", "store_desc": "myshop is testshop", "create_time": 1614230792, "update_time": 1614578877 } ] }</td>
+    </tr>
+    <tr>
+        <td>修改密码</td><td>repwd</td><td>id=2&old_pwd=123456&new_pwd=123123</td><td>{ "code": -2, "msg": "old pwd error", "data": "" }</td>
+    </tr>
+    <tr>
+        <td>修改店铺信息</td><td>update</td><td>store_title=test123&store_name=testshop2&store_desc=myshopdesc&id=2</td><td>{ "code": 0, "msg": "success", "data": 1 }</td>
+    </tr>
+</table>
+
+
+</body>
+</html>
+

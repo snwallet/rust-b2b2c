@@ -1,5 +1,5 @@
 [package]
-name = "rust-hyper-web"
+name = "rust-b2b2c"
 version = "0.1.0"
 authors = ["snwallet <snwallet@qq.com>"]
 edition = "2018"
